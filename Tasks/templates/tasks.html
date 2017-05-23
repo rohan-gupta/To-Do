@@ -1,0 +1,51 @@
+{% extends 'header.html' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">ToDo app</h1>
+            <hr class="my-3">
+            <div class="clearfix">
+                <div class="float-left"><p>Record and manage your daily tasks, here!</p></div>
+                <div class="float-right">
+                    <button class="btn btn-link pt-0" data-toggle="modal" data-target="#addtask"><h2>+</h2></button>
+                </div>
+            </div>
+        </div>
+
+        {% include 'modal.html' %}
+
+
+        <table class="table table-hover">
+            <thead class="thead-inverse">
+            <tr>
+                <th>#</th>
+                <th>Task Name</th>
+                <th>Task Description</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            {% for t in tasks_list %}
+            <tr>
+                <th>{{ t.id }}</th>
+                <th>{{ t.name }}</th>
+                <th>{{ t.description }}</th>
+                <th>
+                    <form method="POST" action="/deletetask/">
+                        {% csrf_token %}<button class="btn btn-link" value="{{ t.id }}" name="recordid" id="recordid"><span aria-hidden="true">&times;</span></button>
+                    </form>
+                </th>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+{% endblock %}
